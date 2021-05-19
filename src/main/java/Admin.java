@@ -16,6 +16,11 @@ import java.util.ArrayList;
  */
 public class Admin extends javax.swing.JFrame {
     Connection con;
+    static String connection = "";
+    static String schema = "";
+    static String user = "";
+    static String pass = "";
+    static String url = "";
     public Admin() {
         initComponents();
         AdminAuto aa =new AdminAuto(this);
@@ -24,12 +29,11 @@ public class Admin extends javax.swing.JFrame {
 
     }
     void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+        //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
         jTextArea1.setText("");
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con= DriverManager.getConnection(url,"root","password");
-            Statement stmt=con.createStatement();
+            con= DriverManager.getConnection(url,user,pass);            Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery("select * from Ingredient");
             while(rs.next()) {
                 jTextArea1.append(rs.getString(1)+"   name: "+rs.getString(2)+"   type: "+rs.getString(3)+"\n");
@@ -40,12 +44,11 @@ public class Admin extends javax.swing.JFrame {
         catch(Exception e){jTextArea1.setText("Could not connect to database");}
     }
     void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+        //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
         jTextArea2.setText("");
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con= DriverManager.getConnection(url,"root","password");
-            Statement stmt=con.createStatement();
+            con= DriverManager.getConnection(url,user,pass);            Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery("select * from Dish");
             while(rs.next()) {
                 jTextArea2.append(rs.getString(1)+"   name: "+rs.getString(2)+"   en.value: "+rs.getString(3)+"   price: "+rs.getString(4)+"\n");
@@ -56,12 +59,11 @@ public class Admin extends javax.swing.JFrame {
         catch(Exception e){jTextArea1.setText("Could not connect to database");}
     }
     void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+        //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
         jTextArea3.setText("");
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con= DriverManager.getConnection(url,"root","password");
-            Statement stmt=con.createStatement();
+            con= DriverManager.getConnection(url,user,pass);            Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery("select * from Client");
             while(rs.next()) {
                 jTextArea3.append(rs.getString(1)+"   name: "+rs.getString(2)+"\n");
@@ -72,12 +74,11 @@ public class Admin extends javax.swing.JFrame {
         catch(Exception e){jTextArea1.setText("Could not connect to database");}
     }
     void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-        String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+        //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
         jTextArea4.setText("");
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con= DriverManager.getConnection(url,"root","password");
-            Statement stmt=con.createStatement();
+            con= DriverManager.getConnection(url,user,pass);            Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery("select * from Storage");
             while(rs.next()) {
                 jTextArea4.append(rs.getString(1)+"   type: "+rs.getString(2)+"   capacity: "+rs.getString(3)+"   cur.amount: "+rs.getString(4)+"   ingredient: "+rs.getString(5)+"\n");
@@ -88,15 +89,14 @@ public class Admin extends javax.swing.JFrame {
         catch(Exception e){jTextArea1.setText("Could not connect to database");}
     }
     void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
-        String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+        //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
         jTextArea5.setText("");
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con= DriverManager.getConnection(url,"root","password");
-            Statement stmt=con.createStatement();
+            con= DriverManager.getConnection(url,user,pass);            Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery("select * from Composition");
             while(rs.next()) {
-                jTextArea5.append("dish: "+rs.getString(1)+"   ingredient: "+rs.getString(2)+"   num: "+rs.getString(3)+"\n");
+                jTextArea5.append("dish: "+rs.getString(2)+"   ingredient: "+rs.getString(3)+"   num: "+rs.getString(4)+"\n");
             }
             con.close();
 
@@ -104,7 +104,7 @@ public class Admin extends javax.swing.JFrame {
         catch(Exception e){jTextArea1.setText("Could not connect to database");}
     }
     void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {
-        String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+        //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
         jTextArea6.setText("");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
@@ -115,8 +115,7 @@ public class Admin extends javax.swing.JFrame {
         //доделать время
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con= DriverManager.getConnection(url,"root","password");
-            Statement stmt=con.createStatement();
+            con= DriverManager.getConnection(url,user,pass);            Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery("select * from Rest.Order");
             ArrayList<int[]> toDelete = new ArrayList<>();
             while(rs.next()) {
@@ -130,7 +129,7 @@ public class Admin extends javax.swing.JFrame {
                     elem[1]=rs.getInt(2);
                     toDelete.add(elem);
                 } else {
-                    jTextArea6.append("Client: " + rs.getInt(1) + "   DIsh: " + rs.getInt(2) + "   num: " + rs.getInt(3) + "   time: " + rs.getString(4) + "\n");
+                    jTextArea6.append("Client: " + rs.getInt(2) + "   DIsh: " + rs.getInt(3) + "   num: " + rs.getInt(4) + "   time: " + rs.getString(5) + "\n");
                 }
             }
             for (int[] elem : toDelete) {
@@ -148,11 +147,10 @@ public class Admin extends javax.swing.JFrame {
                 "Add ingredient", JOptionPane.PLAIN_MESSAGE);
         String[] input = m.split(":");
         if (input.length == 2) {
-            String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+            //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                con= DriverManager.getConnection(url,"root","password");
-                PreparedStatement preparedStatement = con.prepareStatement("insert into Ingredient(name, type) values(?,?);");
+                con= DriverManager.getConnection(url,user,pass);                PreparedStatement preparedStatement = con.prepareStatement("insert into Ingredient(name, type) values(?,?);");
                 preparedStatement.setString(1, input[0]);
                 preparedStatement.setString(2, input[1]);
                 preparedStatement.executeUpdate();
@@ -166,11 +164,10 @@ public class Admin extends javax.swing.JFrame {
         String m = JOptionPane.showInputDialog(this, "Ingredient to delete (id)",
                 "Delete ingredient", JOptionPane.PLAIN_MESSAGE);
         int input = Integer.parseInt(m);
-        String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+        //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con= DriverManager.getConnection(url,"root","password");
-            PreparedStatement preparedStatement = con.prepareStatement("delete from Ingredient where idIngredient = ?");
+            con= DriverManager.getConnection(url,user,pass);            PreparedStatement preparedStatement = con.prepareStatement("delete from Ingredient where idIngredient = ?");
             preparedStatement.setInt(1, input);
             preparedStatement.executeUpdate();
             con.close();
@@ -183,11 +180,10 @@ public class Admin extends javax.swing.JFrame {
                 "Add dish", JOptionPane.PLAIN_MESSAGE);
         String[] input = m.split(":");
         if (input.length == 3) {
-            String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+            //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                con= DriverManager.getConnection(url,"root","password");
-
+                con= DriverManager.getConnection(url,user,pass);
                 PreparedStatement preparedStatement = con.prepareStatement("insert into Dish(name, energyValue, price) values(?,?,?);");
                 preparedStatement.setString(1, input[0]);
                 preparedStatement.setInt(2, Integer.parseInt(input[1]));
@@ -204,11 +200,10 @@ public class Admin extends javax.swing.JFrame {
         String m = JOptionPane.showInputDialog(this, "Dish to delete (id)",
                 "Delete dish", JOptionPane.PLAIN_MESSAGE);
         int input = Integer.parseInt(m);
-        String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+        //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con= DriverManager.getConnection(url,"root","password");
-            PreparedStatement preparedStatement = con.prepareStatement("delete from Dish where idDish = ?");
+            con= DriverManager.getConnection(url,user,pass);            PreparedStatement preparedStatement = con.prepareStatement("delete from Dish where idDish = ?");
             preparedStatement.setInt(1, input);
             preparedStatement.executeUpdate();
             con.close();
@@ -221,11 +216,10 @@ public class Admin extends javax.swing.JFrame {
                 "Add cell", JOptionPane.PLAIN_MESSAGE);
         String[] input = m.split(":");
         if (input.length == 4) {
-            String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+            //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                con= DriverManager.getConnection(url,"root","password");
-
+                con= DriverManager.getConnection(url,user,pass);
                 PreparedStatement preparedStatement = con.prepareStatement("insert into Storage(type, capacity, currentAmount, Ingredient) values(?,?,?,?);");
                 preparedStatement.setString(1, input[0]);
                 preparedStatement.setInt(2, Integer.parseInt(input[1]));
@@ -243,11 +237,10 @@ public class Admin extends javax.swing.JFrame {
         String m = JOptionPane.showInputDialog(this, "Cell to delete (id)",
                 "Delete cell", JOptionPane.PLAIN_MESSAGE);
         int input = Integer.parseInt(m);
-        String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+        //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con= DriverManager.getConnection(url,"root","password");
-            PreparedStatement preparedStatement = con.prepareStatement("delete from Storage where idStorageCell = ?");
+            con= DriverManager.getConnection(url,user,pass);            PreparedStatement preparedStatement = con.prepareStatement("delete from Storage where idStorageCell = ?");
             preparedStatement.setInt(1, input);
             preparedStatement.executeUpdate();
             con.close();
@@ -260,11 +253,10 @@ public class Admin extends javax.swing.JFrame {
                 "Add link", JOptionPane.PLAIN_MESSAGE);
         String[] input = m.split(":");
         if (input.length == 3) {
-            String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+            //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                con= DriverManager.getConnection(url,"root","password");
-
+                con= DriverManager.getConnection(url,user,pass);
                 PreparedStatement preparedStatement = con.prepareStatement("insert into Composition(Dish, Ingredient, num) values(?,?,?);");
                 preparedStatement.setInt(1, Integer.parseInt(input[0]));
                 preparedStatement.setInt(2, Integer.parseInt(input[1]));
@@ -282,10 +274,10 @@ public class Admin extends javax.swing.JFrame {
                 "Delete link", JOptionPane.PLAIN_MESSAGE);
         String[] input = m.split(":");
         if (input.length==2) {
-            String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+            //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                con= DriverManager.getConnection(url,"root","password");
+                con= DriverManager.getConnection(url,user,pass);
 
                 PreparedStatement preparedStatement = con.prepareStatement("delete from Composition where Dish = ? AND Ingredient = ?");
                 preparedStatement.setInt(1, Integer.parseInt(input[0]));
@@ -300,13 +292,13 @@ public class Admin extends javax.swing.JFrame {
     }
     void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {
         String m = JOptionPane.showInputDialog(this, "Amount and cell id: amount:idStorageCell",
-                "But ingredients", JOptionPane.PLAIN_MESSAGE);
+                "Buy ingredients", JOptionPane.PLAIN_MESSAGE);
         String[] input = m.split(":");
         if (input.length == 2) {
-            String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+            //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                con= DriverManager.getConnection(url,"root","password");
+                con= DriverManager.getConnection(url,user,pass);
                 String query = "select Capacity, currentAmount from Storage where idStorageCell = "+input[1];
                 Statement stmt=con.createStatement();
                 ResultSet rs=stmt.executeQuery(query);
@@ -336,10 +328,10 @@ public class Admin extends javax.swing.JFrame {
                 "Dispose of ingredients", JOptionPane.PLAIN_MESSAGE);
         String[] input = m.split(":");
         if (input.length==2) {
-            String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
+            //String url="jdbc:mysql://localhost:3306/Rest?characterEncoding=latin1&useConfigs=maxPerformance";
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                con= DriverManager.getConnection(url,"root","password");
+                con= DriverManager.getConnection(url,user,pass);
                 String query = "select Capacity, currentAmount from Storage where idStorageCell = "+input[1];
                 Statement stmt=con.createStatement();
                 ResultSet rs=stmt.executeQuery(query);
@@ -711,30 +703,11 @@ public class Admin extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        connection = args[0];
+        schema = args[1];
+        user = args[2];
+        pass = args[3];
+        url="jdbc:mysql://"+connection+"/"+schema+"?characterEncoding=latin1&useConfigs=maxPerformance";
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Admin().setVisible(true);
