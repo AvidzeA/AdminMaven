@@ -96,7 +96,7 @@ public class Admin extends javax.swing.JFrame {
             con= DriverManager.getConnection(url,user,pass);            Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery("select * from Composition");
             while(rs.next()) {
-                jTextArea5.append("dish: "+rs.getString(2)+"   ingredient: "+rs.getString(3)+"   num: "+rs.getString(4)+"\n");
+                jTextArea5.append("dish: "+rs.getString(1)+"   ingredient: "+rs.getString(2)+"   num: "+rs.getString(3)+"\n");
             }
             con.close();
 
@@ -129,7 +129,7 @@ public class Admin extends javax.swing.JFrame {
                     elem[1]=rs.getInt(2);
                     toDelete.add(elem);
                 } else {
-                    jTextArea6.append("Client: " + rs.getInt(2) + "   DIsh: " + rs.getInt(3) + "   num: " + rs.getInt(4) + "   time: " + rs.getString(5) + "\n");
+                    jTextArea6.append("Client: " + rs.getInt(1) + "   DIsh: " + rs.getInt(2) + "   num: " + rs.getInt(3) + "   time: " + rs.getString(4) + "\n");
                 }
             }
             for (int[] elem : toDelete) {
