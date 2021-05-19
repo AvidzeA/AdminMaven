@@ -28,7 +28,7 @@
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>Admin</mainClass>
+                            <mainClass>EnterForm</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
